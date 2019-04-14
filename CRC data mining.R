@@ -275,11 +275,11 @@ survplot <- function(x) {
 	Status <- as.numeric(as.vector(Clinic_lncRNA_Exprs$status))
 	group = ifelse(x > median(x), 'high', 'low')
 	dat <- data.frame(group = group, time = OS, status = Status)
-    fit <- survfit(Surv(OS/365, status) ~ group, data = dat)
-    ggsurvplot(fit, data=dat,risk.table = F, pval = T, ggtheme = theme_survminer(),
+        fit <- survfit(Surv(OS/365, status) ~ group, data = dat)
+        ggsurvplot(fit, data=dat,risk.table = F, pval = T, ggtheme = theme_survminer(),
 			 title = paste("Overall survival probability of   in TCGA-COAD"),
 			 xlab = "Time(years)", legend = "top", surv.median.line = "hv")
-			 }
+	}
 survplot(kaplan_dat$ENSG00000258122.1) #	choose a random gene
 ## Batch logrank survival analysis.
 batch_log_rank_os <- apply(kaplan_dat, 2, function(values) {
@@ -334,7 +334,7 @@ coxph_os <- lapply(cox_os_models,function(x) {
 						HR.confint.lower = signif(x$conf.int[, "lower .95"], 3)
 						HR.confint.upper = signif(x$conf.int[, "upper .95"], 3)
 						HR.confint = paste0(" (",
-		                HR.confint.lower, "-", HR.confint.upper, ")")
+		                                HR.confint.lower, "-", HR.confint.upper, ")")
 						res = c(beta, HR, HR.confint, wald.test, HR.pvalue)
 						names(res) = c("beta", "HR", "CI", "wald.test","HR.pvalue")
 						return(res)})
@@ -538,7 +538,7 @@ summary(cox)
 
 stepcox = step(cox, trace = 1, scale = 0,
 		 direction = c("both", "backward", "forward"),
-		steps = 1000, k = 2) ##trace =0 supressing the 
+		 steps = 1000, k = 2) ##trace =0 supressing the 
 summary(stepcox)
 #coxph.detail(stepcox)												  
 coef(stepcox)
@@ -602,8 +602,8 @@ risk = function(dataset) {
 	risk <- as.factor(ifelse(riskScore > median(riskScore), "high", "low"))
 	risk_df <- cbind.data.frame(newdata[, c("id", "OS", "status")], riskScore = riskScore, risk = risk)
 	risk_df <- risk_df %>% dplyr::mutate(OS = as.numeric(OS), riskScore = as.numeric(riskScore)) %>% arrange(desc(riskScore)) %>% mutate(log10.riskScore = log10(riskScore), zscore = (riskScore - mean(riskScore))/sd(riskScore))
-    risk_df$survival.status = ifelse(risk_df$status == 0, "Censored", "Dead")
-    risk_df$survival.status <- as.factor(risk_df$survival.status)
+        risk_df$survival.status = ifelse(risk_df$status == 0, "Censored", "Dead")
+        risk_df$survival.status <- as.factor(risk_df$survival.status)
 	return(risk_df)
 	}
 
@@ -628,7 +628,7 @@ ggdotchart2 = ggdotchart(risk_df, x = "id", y = "log10.riskScore", shape = "grou
  	 geom_rug(aes(color = survival.status), data = risk_df, size = 0.1, alpha = 1, position = "jitter") +
 	 scale_shape_manual(values = c(18, 20)) +
 	 theme(axis.text.y = element_blank(),axis.ticks.y = element_blank()) 
-     #geom_jitter(position = position_jitter(height = .05))#	,axis.title.y = element_blank())
+         #geom_jitter(position = position_jitter(height = .05)) #,axis.title.y = element_blank())
 
 library(dplyr)
 
@@ -668,9 +668,9 @@ set.seed(12345)
 options(rf.cores = 4)
 ## Tunning hyperparamters to obtain miminal OOB error
 (rf_tune= tune(Surv(OS, status) ~., data = rfdata_train, mtryStart = floor(sqrt(ncol(rfdata_train))),
-         nodesizeTry = c(1:9, seq(10, 100, by = 5)), ntreeTry = 500,
-         stepFactor = 1.25, improve = 1e-3, strikeout = 3, maxIter = 50,
-         trace = T, doBest = T))
+          nodesizeTry = c(1:9, seq(10, 100, by = 5)), ntreeTry = 500,
+          stepFactor = 1.25, improve = 1e-3, strikeout = 3, maxIter = 50,
+          trace = T, doBest = T))
 #
 rftun_res=as.data.frame(rf_tune[["results"]])
 
@@ -695,11 +695,11 @@ set.seed(1234)#
 (rfsrc <- rfsrc(Surv(OS, status) ~ ., data = rfdata_train, nsplit = 3,
 	   mtry = rf_tune$optimal["mtry"],
 	   nodesize=rf_tune$optimal["nodesize"],
-		 bootstrap = "by.root",
-		 samptype = "swor",
-     na.action = "na.impute", nimpute = 1,
-		 tree.err = T, split.depth = "by.tree",
-		 importance = "permute", ntree = 500, do.trace = T, statistics=T))
+	   bootstrap = "by.root",
+	   samptype = "swor",
+           na.action = "na.impute", nimpute = 1,
+	   tree.err = T, split.depth = "by.tree",
+           importance = "permute", ntree = 500, do.trace = T, statistics=T))
 
 plot(rfsrc, main = "RandomForest OOB error and Vimp")
 
@@ -721,14 +721,14 @@ ggplot(ggdata, aes(x = time, y = surv, colour = Group)) +
 	geom_rug() + labs(title = "Survival Probability of patients in TCGA-COAD", y = "Survival Probability", x = "Observation Time (years)") +
 	geom_vline(xintercept = 5, linetype = "dashed", color = "grey", size = 0.5) +
 	geom_hline(yintercept = 0.6, linetype = "dashed", color = "grey", size = 0.5)+
-  theme(plot.title = element_text(size = 20, hjust = 1, lineheight = 0.2), axis.text.x = element_text(size = 6)) +theme_pubr() 
+        theme(plot.title = element_text(size = 20, hjust = 1, lineheight = 0.2), axis.text.x = element_text(size = 6)) +theme_pubr() 
 #CUMULATIVE HAZARD OF PATIENTS IN TCGA-COAD	 geom_step ,geom_line
 ggplot(ggdata, aes(x = time, y = cum_haz, colour = Group)) +
 	geom_step(size = 1) +
 	geom_rug() + labs(title = "Cumulative Hazard of patients in TCGA-COAD", y = "Cumulative Hazard", x = "Observation Time (years)") +
 	geom_vline(xintercept = 5, linetype = "dashed", color = "grey", size = 0.5) +
 	geom_hline(yintercept = 0.5, linetype = "dashed", color = "grey", size = 0.5)+
-    theme(plot.title = element_text(size = 20, hjust = 1, lineheight = 0.2), axis.text.x = element_text(size = 6)) +theme_pubr() 
+        theme(plot.title = element_text(size = 20, hjust = 1, lineheight = 0.2), axis.text.x = element_text(size = 6)) +theme_pubr() 
 
 
 #RANDOM FOREST PREDICTED SURVIVAL OF PATIENTS IN TRAINING DATA
@@ -749,7 +749,7 @@ plot(gg_rfsrc(rf.pred)) + theme(legend.position = c(0.1, 0.2)) +
 	theme(plot.title = element_text(size = 20, hjust = 0, lineheight = 0.2), axis.text.x = element_text(size = 6)) +
 	geom_vline(xintercept = c(1, 3), linetype = "dashed") +
 	coord_cartesian(x = c(0, 4)) + theme_pubr() + theme_pubr() + geom_rug() +
-  annotate(geom = "text", x = 1, y = 0.3,
+        annotate(geom = "text", x = 1, y = 0.3,
 	label = paste("OOB error", round(mean(na.omit(rf.pred$err.rate))*100, 3), "%"),
 	color = "black") +scale_color_manual(values = c("#0073C2FF", "#FC4E07"))
 #Variable importance (VIMP) was originally defined in CART using a measure involving surrogate
@@ -787,11 +787,10 @@ plot(gg_v, xvar = "stage", alpha = 0.6) +
 		 theme(plot.title = element_text(size = 15, hjust = 0.5, lineheight = 0.2)) 
 
 #
-plot(gg_v, xvar = colnames(gg_v)[2:9],
-     panel = T, alpha = 0.1) + theme(legend.position = "top") +
+plot(gg_v, xvar = colnames(gg_v)[2:9],panel = T, alpha = 0.1) + theme(legend.position = "top") +
 		 labs(title = "LncRNA Expression dependent Overall Survival Probability", y = "Survival Probability", x = "lncRNA Expression log2(FPKM+0.001)") +
 		 scale_color_manual(values = c("#0073C2FF", "#FC4E07")) + coord_cartesian(ylim = c(0.4, 1))
- 	   theme(plot.title = element_text(size = 12, hjust = 0.5, lineheight = 0.2))
+ 	         theme(plot.title = element_text(size = 12, hjust = 0.5, lineheight = 0.2))
 
 #COMPUTE THE PREDICTION ERROR AND C INDEX FIT CANDIDATE COX AND RANDOMFORESTSRC MODELS AND COMPUTE THE KAPLAN - MEIER ESTIMATE. set.seed(12345)
 #estimation of the expected Brier score in general survival models with right - censored event times
@@ -905,8 +904,8 @@ set.seed(12345)
 #alpha (Mixing Percentage) alpha=0 ridge, alpha=1 lasso,lambda (Regularization Parameter)
 elastnet <- train(group ~ ., data = train, method = "glmnet",
 				         tuneLength = 10,trControl = custom, metric = "ROC",
-					       tuneGrid = expand.grid(alpha = seq(0, 1, length = 10),
-					       lambda = seq(0.0001, 0.1, length = 5)))
+					  tuneGrid = expand.grid(alpha = seq(0, 1, length = 10),
+					  lambda = seq(0.0001, 0.1, length = 5)))
 
 elastnet$results
 elastnet$bestTune ## best tunning parameters
@@ -977,7 +976,7 @@ p2 <-ggplot(RF) + geom_vline(xintercept = RF$bestTune$mtry, col = "darkgrey", lt
 			theme_bw() + theme(legend.position = "top") +
 			labs(title = "Resampling Profile of randomForest model for Training data",
 			x = "Randomly Selected Predictors(mtry)") +
-	    theme(plot.title = element_text(size = 14, hjust = 1, lineheight = 0.2))
+	                theme(plot.title = element_text(size = 14, hjust = 1, lineheight = 0.2))
 
 RF$bestTune$mtry
 #ggplot(varImp(RF, scale = T))
