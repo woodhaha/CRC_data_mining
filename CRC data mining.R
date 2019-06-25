@@ -14,15 +14,15 @@
 
 # 2.Processing the long noncoding RNAs annotation file, and checking the sample and lncRNA information. 
 ## cd /mnt/c/Users/woodhaha/Desktop/CRC_data_mining
-## echo|awk 'BEGIN{FS=="	" ; OFS=="	"}{if($3=="gene" ){print $10,$12,$14}}' gencode.v23.long_noncoding_RNAs.gtf> "lnc_RNAs_annotation_v22.txt"
+## echo|awk 'BEGIN{FS==" " ; OFS==" "}{if($3=="gene" ){print $10,$12,$14}}' gencode.v23.long_noncoding_RNAs.gtf> "lnc_RNAs_annotation_v22.txt"
 
 
 ## NOTE: R will automatically change the character "-" in gene symbol to character ".", using stringr::str_replace(X$Symbol, "\\.{1}", "-" )
 
 # 3.Loading packages and parameter settings.
 ##
-setwd("C:/Users/woodhaha/Desktop/CRC_data_mining")
-#load("C:/Users/woodhaha/Desktop/CRC_data_mining/Results/Documents.rdata")
+setwd("E:/CRC_data_mining")
+#load("E:/CRC_data_mining/Results/Documents.rdata")
 par(mfrow = c(1, 1), omi = c(0.5, 0.5, 0.5, 0.5), las = 1, family = "Arial")
 par(cex.lab=1,cex.axis=1,cex.main=1)##default omi = c(0.5, 0.5, 0.5, 0.5), mgp = c(3, 1, 0
 options(digits = 4,stringsAsFactors=F,scipen=0)
@@ -33,7 +33,7 @@ LoadRpak <- function(pkg){new.pkg <- pkg[!(pkg %in% installed.packages()[, "Pack
                           if (length(new.pkg)) install.packages(new.pkg, dependencies = TRUE)
 	                      sapply(pkg, require, character.only = TRUE)}
 
-.libPaths("C:/R Working Directory/win-library/3.5")# Using R 3.5 package library 
+.libPaths("C:/R Working Directory/win-library/3.6")# Using R 3.6 package library 
 packages <- c("ggplot2", "dplyr", "reshape2", "RColorBrewer", "scales", "grid","regclass","caret","glmnet",
 "pROC","AppliedPredictiveModeling","dplyr","ggpubr","ranger","ggplot2","ggfortify","tidyr","survminer","survival", "qdap", "table1", "xtable", "glmnet", "penalizedSVM", "parallel", "randomForestSRC",
 "ggRandomForests","xtable","peperr","tgp","mlegp","pamr","lattice","c060","limma")
