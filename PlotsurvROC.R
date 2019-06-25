@@ -5,7 +5,7 @@ PlotsurvROC = function(predict.time=5,Train,Validate, model = stepcox) {
 	   require(survminer)
 	   require(survivalROC)
       
-	  newdata_t = Train[, colnames(Train) %in% c(cox_vip_list, "status", "stage","OS", "id")]
+      newdata_t = Train[, colnames(Train) %in% c(cox_vip_list, "status", "stage","OS", "id")]
       riskScore_t <-predict(stepcox, type = "risk", newdata = newdata_t)
       risk_t <- as.factor(ifelse(riskScore_t > median(riskScore_t), "high", "low"))
       risk_df_t <- cbind.data.frame(newdata_t[, c("id","OS","status")], riskScore = riskScore_t, risk = risk_t)
