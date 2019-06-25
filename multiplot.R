@@ -1,7 +1,7 @@
 multiplot <- function(..., plotlist = NULL, file, cols = 1, layout = NULL) {
 	library(grid)
-    plots <- c(list(...), plotlist)
-    numPlots = length(plots)
+       plots <- c(list(...), plotlist)
+       numPlots = length(plots)
 
 	# If layout is NULL, then use 'cols' to determine layout
 	if (is.null(layout)) {
