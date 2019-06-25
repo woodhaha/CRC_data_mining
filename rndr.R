@@ -1,4 +1,5 @@
 rndr <- function(x, name, ...) {
+
 if (length(x) == 0) {
 y <- clinical[[name]]
 s <- rep("", length(render.default(x=y, name=name, ...)))
@@ -16,6 +17,7 @@ render.default(x=x, name=name, ...)
 rndr.strat <- function(label, n, ...) {
 ifelse(n==0, label, render.strat.default(label, n, ...))
 }
+
 
 rndr <- function(x, name, ...) {
 if (length(x) == 0) {
