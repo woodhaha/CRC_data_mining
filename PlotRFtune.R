@@ -21,10 +21,10 @@ if (library("akima", logical.return = TRUE)) {
 				   main = "RandomForest OOB error for nodesize and mtry",
 				   key.title = title(main = "OOB error", cex.main = 0.8),
 				   plot.axes = {
-			axis(1);
-			axis(2);
-			points(x0, y0, pch = "x", cex = 1, font = 2);
-			points(x, y, pch = 16, cex = .25)
+			                axis(1);
+			                axis(2);
+			                points(x0, y0, pch = "x", cex = 1, font = 2);
+			                points(x, y, pch = 16, cex = .25)
 		})
 	}
 	## plot the surface
