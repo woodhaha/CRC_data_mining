@@ -6,8 +6,8 @@ Bier = function(dataset) {
 	registerDoMC()
 	pecdata = dataset[, colnames(dataset) %in% c(cox_vip_list, "stage", "OS", "status")]
 	Models <- list(
-				"CoxPH.stage" = coxph(Surv(OS, status) ~ stage, data = pecdata, x = T, y = T),
-				"CoxPH" = coxph(Surv(OS, status) ~ ., data = pecdata, x = T, y = T),
+		"CoxPH.stage" = coxph(Surv(OS, status) ~ stage, data = pecdata, x = T, y = T),
+		               "CoxPH" = coxph(Surv(OS, status) ~ ., data = pecdata, x = T, y = T),
                 "RandomForest" = rfsrc)
 	Bier.imp <- pec::pec(Models, formula =Hist(OS, status) ~., data = pecdata,
 	cens.model = "marginal", splitMethod = "bootcv", M = round(nrow(pecdata)*0.6), B =100, keep.index = T,
