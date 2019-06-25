@@ -18,7 +18,6 @@ rndr.strat <- function(label, n, ...) {
 ifelse(n==0, label, render.strat.default(label, n, ...))
 }
 
-
 rndr <- function(x, name, ...) {
 if (length(x) == 0) {
 y <- meregedata[[name]]
