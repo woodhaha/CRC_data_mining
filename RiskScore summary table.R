@@ -7,7 +7,7 @@ row.names(summary_dat) = summary_dat$id
 meregedata = merge(risk_df, summary_dat, by = "id")
 meregedata = meregedata %>% arrange(desc(log10.riskScore))
 meregedata =meregedata %>% dplyr::select(-id,-status) %>% mutate(
-group = factor(group, levels = c("Validating", "Training"), labels = c("Validating", "Training")),
+group = factor(group, levels = c("Testing", "Training"), labels = c("Testing", "Training")),
 survival.status = factor(survival.status, levels = c("Alive", "Dead", "P-value"),
  labels = c("Alive", "Dead", "P-value")))
 #
