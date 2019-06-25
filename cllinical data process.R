@@ -12,9 +12,8 @@ page.size = 150
 Colon.followup = list()
 while (all.Received == F) {
 	Colon.followup[[page.Counter]] = Samples.Clinical(format = "csv",
-												cohort = cancer.Type,
-												page_size = page.size,
-												page = page.Counter)
+	cohort = cancer.Type,page_size = page.size, page = page.Counter)
+	
 	if (page.Counter > 1)
 		colnames(Colon.followup[[page.Counter]]) = colnames(Colon.followup[[page.Counter - 1]])
 
@@ -28,15 +27,18 @@ while (all.Received == F) {
 Colon.followup = do.call(rbind, Colon.followup)
 
 write.csv(Colon.followup,"TCGA-COAD.followup-fullData.csv")
-clinical = Colon.followup %>% select("tcga_participant_barcode", "age_at_initial_pathologic_diagnosis", "anatomic_neoplasm_subdivision",
-								   "days_to_death", "days_to_last_followup", "gender",
-							   "pathologic_stage", "venous_invasion", "vital_status",
-							   "preoperative_pretreatment_cea_level","perineural_invasion_present", "number_of_lymphnodes_positive_by_he","lymphatic_invasion", "person_neoplasm_cancer_status")
+clinical = Colon.followup %>% select("tcga_participant_barcode", 
+				     "age_at_initial_pathologic_diagnosis", "anatomic_neoplasm_subdivision",
+				     "days_to_death", "days_to_last_followup", "gender",
+				    "pathologic_stage", "venous_invasion", "vital_status",
+				    "preoperative_pretreatment_cea_level","perineural_invasion_present", 
+				     "number_of_lymphnodes_positive_by_he","lymphatic_invasion", "person_neoplasm_cancer_status")
 
 colnames(clinical) = c("id", "age", "location", "days_to_death", 
                       "days_to_last_followup", "gender",
-					 "stage", "venous_invasion", "vital_status",
-					 "preoperative_CEA","perineural_invasion", "lymphnodes_positive_by_HE","lymphatic_invasion", 
+			"stage", "venous_invasion", "vital_status",
+			"preoperative_CEA","perineural_invasion", 
+		          "lymphnodes_positive_by_HE","lymphatic_invasion", 
 					 "person_neoplasm_status")
 
 clinical$status <- ifelse(clinical$vital_status == "alive", 0, 1)
