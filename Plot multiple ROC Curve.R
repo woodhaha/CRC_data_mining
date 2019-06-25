@@ -37,12 +37,12 @@ plot(NNET.roc, col = "#E7B800",
      print.thres =F, print.thres.adj = c(-.05, 1.25), print.thres.cex = 0.8, add = T)
 
 legend("bottomright", legend = c(paste("Logistic Regression AUC: ", round(logisreg.roc[["auc"]], 3)),
-								paste("Elastic Net AUC: ", round(elastnet.roc[["auc"]], 3)),
-					            paste("Random Forest AUC: ", round(RF.roc[["auc"]], 3)),
-					            paste("Support Vector Machine AUC: ", round(SVM.roc[["auc"]], 3)),
-								paste("Neural Network AUC: ", round(NNET.roc[["auc"]], 3)))
-								,col = c("#1C61B6", "#FC4E07", "#00AFBB", "#008600", "#E7B800"), bty = "n",
-									cex = 0.6, lwd = 2, title = "Model performace", title.adj = 0.5, adj = c(0, 0))
+				paste("Elastic Net AUC: ", round(elastnet.roc[["auc"]], 3)),
+				paste("Random Forest AUC: ", round(RF.roc[["auc"]], 3)),
+			        paste("Support Vector Machine AUC: ", round(SVM.roc[["auc"]], 3)),
+				paste("Neural Network AUC: ", round(NNET.roc[["auc"]], 3)))
+				,col = c("#1C61B6", "#FC4E07", "#00AFBB", "#008600", "#E7B800"), bty = "n",
+				cex = 0.6, lwd = 2, title = "Model performace", title.adj = 0.5, adj = c(0, 0))
 }
 
 
