@@ -1,4 +1,5 @@
 CALAUC_train=function(time){
+   
     newdata = Train[, colnames(Train) %in% c(cox_vip_list, "status", "stage","OS", "id")]
     riskScore<-predict(stepcox, type = "risk", newdata = newdata)
     risk_df <- cbind.data.frame(newdata[, c("id","OS","status")], riskScore = riskScore)
