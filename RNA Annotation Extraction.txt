@@ -1,23 +1,10 @@
-cd /mnt/c/Users/woodhaha/Desktop/CRC_data_mining/gencode_annotation
-echo|awk 'BEGIN{FS=="	" ; OFS=="	"}{if($3=="gene" ){print $10,$12,$14}}' gencode.v28.annotation.gtf> "gencode_v28_RNAs_annotation.txt"
+##Extract LncRNA annotations gencode.v22 and v23
 
-gencode.v22.annotation.gtf
-
-echo|awk 'BEGIN{FS=="	" ; OFS=="	"}{if($3=="gene" ){print $10,$12,$16}}' gencode.v22.annotation.gtf> "gencode_v22_RNAs_annotation.txt"
+echo|awk 'BEGIN{FS=="	" ; OFS==" "}{if($3=="gene" ){print $10,$12,$16}}' gencode.v22.annotation.gtf> "gencode_v22_RNAs_annotation.txt"
+echo|awk 'BEGIN{FS=="	" ; OFS==" "}{if($3=="gene" ){print $10,$12,$16}}' gencode.v22.long_noncoding_RNAs.gtf> "lnc_RNAs_annotation_v22.txt"
 
 
+echo|awk 'BEGIN{FS=="	" ; OFS==" "}{if($3=="gene" ){print $10,$12,$16}}' gencode.v23.annotation.gtf> "gencode_v23_RNAs_annotation.txt"
 
-echo|awk 'BEGIN{FS=="	" ; OFS=="	"}{if($3=="gene" ){print $10,$12,$16}}' gencode.v22.annotation.gtf> "gencode_v22_RNAs_annotation.txt"
+echo|awk 'BEGIN{FS=="	" ; OFS==" "}{if($3=="gene" ){print $10,$12,$16}}' gencode.v23.long_noncoding_RNAs.gtf> "lnc_RNAs_annotation_v23.txt"
 
-
-
-echo|awk 'BEGIN{FS=="	" ; OFS=="	"}{if($3=="gene" ){print $10,$12,$16}}' gencode.v23.long_noncoding_RNAs.gtf> "lnc_RNAs_annotation_v23.txt"
-
-
-
-
-echo|awk 'BEGIN{FS=="	" ; OFS=="	"}{if($3=="gene" ){print $10,$12,$16}}' gencode.v22.long_noncoding_RNAs.gtf> "lnc_RNAs_annotation_v22.txt"
-
-
-
-echo|awk 'BEGIN{FS=="	" ; OFS=="	"}{if($3=="gene" ){print $1,$4,$5,$7, $10,$12,$16}}' gencode.v23.long_noncoding_RNAs.gtf> "lnc_RNAs_annotation_v23.txt"
