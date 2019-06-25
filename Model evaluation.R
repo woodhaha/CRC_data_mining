@@ -3,15 +3,16 @@ model_pred <- function(models, dataset) {
 	options(digits = 4)
 	predsclas <- predict(models, newdata = dataset)
 	res = confusionMatrix(data = predsclas, reference = dataset$group, positive = "Tumor", mode = "prec_recall")
-	dat = data.frame(Accuracy = res[["overall"]][["Accuracy"]],
+	dat = data.frame(
+		                 Accuracy = res[["overall"]][["Accuracy"]],
 				 Lower = res[["overall"]][["AccuracyLower"]],
 				 Upper = res[["overall"]][["AccuracyUpper"]],
 				 AccPVal = res[["overall"]][["AccuracyPValue"]],
 				 Kappa = res[["overall"]][["Kappa"]],
 				 McnemarPVal = res[["overall"]][["McnemarPValue"]],
 				 Precision=res[["byClass"]][["Precision"]],
-		         Recall=res[["byClass"]][["Recall"]],
-		         F1=res[["byClass"]][["F1"]])
+		                 Recall=res[["byClass"]][["Recall"]],
+		                 F1=res[["byClass"]][["F1"]])
 	return(dat)
 }
 
